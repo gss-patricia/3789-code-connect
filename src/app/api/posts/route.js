@@ -8,7 +8,7 @@ export async function GET(request) {
   try {
     const where = {};
 
-    if (searchTerm?.length > 0) {
+    if (searchTerm !== "undefined" && searchTerm?.length > 0) {
       where.title = {
         contains: searchTerm,
         mode: "insensitive",
