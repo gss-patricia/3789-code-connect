@@ -6,8 +6,10 @@ import { Spinner } from "@/components/Spinner";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-const fetchPosts = async ({ page }) => {
-  const results = await fetch(`http://localhost:3000/api/posts?page=${page}`);
+const fetchPosts = async ({ page, searchTerm }) => {
+  const results = await fetch(
+    `http://localhost:3000/api/posts?page=${page}&searchTerm=${searchTerm}`
+  );
   const data = await results.json();
   return data;
 };
@@ -30,7 +32,7 @@ export default function Home({ searchParams }) {
     isFetching,
   } = useQuery({
     queryKey: ["posts", currentPage],
-    queryFn: () => fetchPosts({ page: currentPage }),
+    queryFn: () => fetchPosts({ page: currentPage, searchTerm }),
     staleTime: 6000,
   });
 
