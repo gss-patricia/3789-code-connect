@@ -6,11 +6,11 @@ import { Spinner } from "@/components/Spinner";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-const fetchPosts = async ({ page, searchTerm }) => {
-  const results = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&searchTerm=${searchTerm}`
-  );
+const fetchPosts = async ({ page }) => {
+  const results = await fetch(`http://localhost:3000/api/posts?page=${page}`);
+
   const data = await results.json();
+
   return data;
 };
 
@@ -18,7 +18,9 @@ export const fetchPostRating = async ({ postId }) => {
   const results = await fetch(
     `http://localhost:3000/api/post?postId=${postId}`
   );
-  const data = await results.json();
+
+  const data = results.json();
+
   return data;
 };
 
@@ -32,13 +34,13 @@ export default function Home({ searchParams }) {
     isFetching,
   } = useQuery({
     queryKey: ["posts", currentPage],
-    queryFn: () => fetchPosts({ page: currentPage, searchTerm }),
-    staleTime: 6000,
+    queryFn: () => fetchPosts({ page: currentPage }),
+    staleTime: 2000,
   });
 
   const postRatingQueries = useQueries({
     queries:
-      posts?.data?.length > 0
+      posts?.data.length > 0
         ? posts.data.map((post) => ({
             queryKey: ["postHome", post.id],
             queryFn: () => fetchPostRating({ postId: post.id }),
@@ -47,7 +49,6 @@ export default function Home({ searchParams }) {
         : [],
   });
 
-  // Criar um mapa de ratings usando o ID do post como chave
   const ratingsAndCartegoriesMap = postRatingQueries?.reduce((acc, query) => {
     if (!query.isPending && query.data && query.data.id) {
       acc[query.data.id] = query.data;

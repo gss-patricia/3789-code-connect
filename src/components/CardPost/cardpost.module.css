@@ -74,3 +74,9 @@
   padding: 8px;
   gap: 10px;
 }
+
+.thumbsUpButtonMessage {
+  position: absolute;
+  font-size: 12px !important;
+  bottom: 20px;
+}

@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
               {children}
             </div>
           </div>
-          <ReactQueryDevtools initialIsOpen={false} position="left" />
+          <ReactQueryDevtools initialIsOpen={false} position="bottom" />
         </body>
       </ReactQueryProvider>
     </html>

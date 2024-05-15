@@ -4,7 +4,8 @@ import { useState } from "react";
 import styles from "./replies.module.css";
 import { Comment } from "../Comment";
 import { ReplyModal } from "../ModalReply";
-import { useFetchReplies, fetchReplies } from "@/hooks/useFetchReplies";
+import { useFetchReplies } from "@/app/hooks/useFetchReplies";
+import { fetchReplies } from "@/app/hooks/useFetchReplies";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const Replies = ({ comment, slug }) => {
@@ -18,11 +19,9 @@ export const Replies = ({ comment, slug }) => {
 
   const prefetch = () => {
     if (!showReplies) {
-      // Prefetch somente se showReplies for false
       queryClient.prefetchQuery({
         queryKey: ["replies", comment.id, slug],
         queryFn: () => fetchReplies({ commentId: comment.id, slug }),
-        staleTime: 1000 * 60 * 5, // Considerar os dados "fresh" por 5 minutos,
         retry: 5,
         retryDelay: 500,
       });

@@ -17,7 +17,7 @@ let failCount = 0;
 export async function GET(request, { params }) {
   const slug = request.nextUrl.searchParams.get("slug");
 
-  if (failCount < 5 && slug === "sass-simplificando-o-css") {
+  if (failCount < 4 && slug === "sass-simplificando-o-css") {
     failCount += 1;
     throw new Error("Simulated server error"); // Forçar falha
   }

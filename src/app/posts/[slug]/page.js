@@ -8,7 +8,9 @@ import { fetchPostRating } from "@/app/page";
 
 const fetchPostBySlug = async ({ slug }) => {
   const results = await fetch(`http://localhost:3000/api/post/${slug}`);
+
   const data = await results.json();
+
   return data;
 };
 
