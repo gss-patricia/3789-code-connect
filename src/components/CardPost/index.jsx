@@ -24,11 +24,23 @@ export const CardPost = ({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData),
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error!  status ${response.status}`);
+        }
+
+        return response.json();
       });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["post", post.slug]);
       queryClient.invalidateQueries(["posts", currentPage]);
+    },
+    onError: (error, variables) => {
+      console.error(
+        `Erro ao salvar o thumbsUp para o slug: ${variables.slug}`,
+        { error }
+      );
     },
   });
 
@@ -57,6 +69,11 @@ export const CardPost = ({
             }}
           >
             <ThumbsUpButton disable={isFetching} />
+            {thumbsMutation.isError && (
+              <p className={styles.ThumbsUpButtonMessage}>
+                Oops, ocorreu um erro ao salvar thumbsUp.
+              </p>
+            )}
             <p>{post.likes}</p>
           </form>
           <div>

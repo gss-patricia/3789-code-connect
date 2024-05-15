@@ -45,6 +45,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .footer p {
@@ -75,8 +76,8 @@
   gap: 10px;
 }
 
-.thumbsUpButtonMessage {
+.ThumbsUpButtonMessage {
   position: absolute;
   font-size: 12px !important;
-  bottom: 20px;
+  top: 75%;
 }
