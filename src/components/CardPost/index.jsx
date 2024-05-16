@@ -44,6 +44,25 @@ export const CardPost = ({
     },
   });
 
+  const submitCommentMutation = useMutation({
+    mutationFn: (commentData) => {
+      return fetch(`http://localhost:3000/api/comment/${post.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(commentData),
+      });
+    },
+  });
+
+  const onSubmitComment = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const text = formData.get("text");
+
+    submitCommentMutation.mutate({ id: post.id, text });
+  };
+
   return (
     <article className={styles.card} style={{ width: highlight ? 993 : 486 }}>
       <header className={styles.header}>
@@ -77,7 +96,7 @@ export const CardPost = ({
             <p>{post.likes}</p>
           </form>
           <div>
-            <ModalComment />
+            <ModalComment onSubmit={onSubmitComment} />
             <p>{post.comments.length}</p>
           </div>
           {rating && (
