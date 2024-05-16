@@ -52,6 +52,16 @@ export const CardPost = ({
         body: JSON.stringify(commentData),
       });
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["post", post.slug]);
+      queryClient.invalidateQueries(["posts", currentPage]);
+    },
+    onError: (error, variables) => {
+      console.error(
+        `Erro ao salvar o comentário para o slug: ${variables.slug}`,
+        { error }
+      );
+    },
   });
 
   const onSubmitComment = (event) => {
