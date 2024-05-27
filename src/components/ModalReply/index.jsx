@@ -6,12 +6,12 @@ import styles from "./replymodal.module.css";
 import { Textarea } from "../Textarea";
 import { SubmitButton } from "../SubmitButton";
 import { Comment } from "../Comment";
-import { useReplyMutaion } from "@/app/hooks/useReplyMutation";
+import { useReplyMutation } from "@/app/hooks/useReplyMutation";
 
 export const ReplyModal = ({ comment, slug }) => {
   const modalRef = useRef(null);
 
-  const { mutate, isSuccess } = useReplyMutaion(slug);
+  const { mutate, isSuccess } = useReplyMutation(slug);
 
   const openModal = () => {
     modalRef.current.openModal();

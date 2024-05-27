@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useReplyMutaion = (slug) => {
+export const useReplyMutation = (slug) => {
   const queryClient = useQueryClient();
 
   const replyMutation = useMutation({
